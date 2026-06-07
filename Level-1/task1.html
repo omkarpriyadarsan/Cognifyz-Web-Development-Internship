@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Level 1 - Task 1</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4f8;
+      color: #333;
+    }
+
+    /* ── Navigation ── */
+    nav {
+      background: #2c3e50;
+      padding: 14px 30px;
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+    nav a {
+      color: #ecf0f1;
+      text-decoration: none;
+      font-size: 15px;
+      padding: 6px 14px;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+    nav a:hover { background: #3498db; }
+
+    /* ── Main Section ── */
+    .hero {
+      max-width: 800px;
+      margin: 50px auto;
+      background: white;
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 2rem;
+      color: #2c3e50;
+      margin-bottom: 16px;
+    }
+    .hero p {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #555;
+      margin-bottom: 24px;
+    }
+    .hero img {
+      width: 100%;
+      max-width: 500px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    /* ── Form Section ── */
+    .form-box {
+      max-width: 500px;
+      margin: 30px auto 60px;
+      background: white;
+      padding: 32px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    .form-box h2 {
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+    .form-box input[type="text"] {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 15px;
+      margin-bottom: 16px;
+      outline: none;
+      transition: border 0.3s;
+    }
+    .form-box input[type="text"]:focus { border-color: #3498db; }
+    .form-box button {
+      width: 100%;
+      padding: 12px;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .form-box button:hover { background: #2980b9; }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Menu (3 links) -->
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <!-- Heading + Paragraph + Image -->
+  <div class="hero" id="home">
+    <h1>Welcome to My Web Page</h1>
+    <p>
+      This is a simple webpage built with HTML and CSS as part of the
+      Cognifyz Web Development Internship. It demonstrates basic structure
+      including headings, paragraphs, images, and navigation.
+    </p>
+    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600"
+         alt="Web Development" />
+  </div>
+
+  <!-- Form with input + submit -->
+  <div class="form-box" id="contact">
+    <h2>Get in Touch</h2>
+    <input type="text" placeholder="Enter your name..." />
+    <button type="button">Submit</button>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Level 1 - Task 2</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4f8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      gap: 40px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 32px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+    .card h2 { color: #2c3e50; margin-bottom: 20px; }
+
+    /* Color Button */
+    #colorBtn {
+      padding: 14px 32px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background: #3498db;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.1s;
+    }
+    #colorBtn:active { transform: scale(0.96); }
+
+    /* Greeting */
+    #greetBtn {
+      padding: 12px 28px;
+      background: #2ecc71;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    #greetBtn:hover { background: #27ae60; }
+
+    /* Calculator */
+    .calc input {
+      width: 40%;
+      padding: 10px;
+      font-size: 16px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      text-align: center;
+      outline: none;
+      margin: 5px;
+    }
+
+    .calc input:focus {
+      border-color: #3498db;
+    }
+
+    .calc button {
+      margin: 8px 5px;
+      padding: 11px 20px;
+      background: #e74c3c;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .calc button:hover {
+      background: #c0392b;
+    }
+
+    #result {
+      margin-top: 14px;
+      font-size: 18px;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. Color-changing button -->
+  <div class="card">
+    <h2>🎨 Color Changer</h2>
+    <button id="colorBtn" onclick="changeColor()">Click Me!</button>
+  </div>
+
+  <!-- 2. Time-based greeting -->
+  <div class="card">
+    <h2>👋 Time Greeting</h2>
+    <button id="greetBtn" onclick="showGreeting()">Show Greeting</button>
+  </div>
+
+  <!-- 3. Advanced Calculator -->
+  <div class="card">
+    <h2>🧮 Advanced Calculator</h2>
+
+    <div class="calc">
+      <input type="number" id="num1" placeholder="0" />
+      <input type="number" id="num2" placeholder="0" />
+
+      <br>
+
+      <button onclick="calculate('+')">+</button>
+      <button onclick="calculate('-')">-</button>
+      <button onclick="calculate('*')">×</button>
+      <button onclick="calculate('/')">÷</button>
+      <button onclick="calculate('%')">%</button>
+
+      <p id="result"></p>
+    </div>
+  </div>
+
+  <script>
+    // Task 1: Change button color on click
+    const colors = ['#e74c3c','#9b59b6','#f39c12','#1abc9c','#e67e22','#3498db'];
+    let colorIndex = 0;
+
+    function changeColor() {
+      colorIndex = (colorIndex + 1) % colors.length;
+      const btn = document.getElementById('colorBtn');
+      btn.style.background = colors[colorIndex];
+    }
+
+    // Task 2: Time-based greeting alert
+    function showGreeting() {
+      const hour = new Date().getHours();
+      let message = '';
+
+      if (hour >= 5 && hour < 12) {
+        message = '🌅 Good Morning! Have a productive day!';
+      } else if (hour >= 12 && hour < 17) {
+        message = '☀️ Good Afternoon! Keep up the great work!';
+      } else if (hour >= 17 && hour < 21) {
+        message = '🌆 Good Evening! Hope your day went well!';
+      } else {
+        message = '🌙 Good Night! Time to rest and recharge!';
+      }
+
+      alert(message);
+    }
+
+    // Task 3: Arithmetic Calculator
+    function calculate(operator) {
+
+      const a = parseFloat(document.getElementById('num1').value) || 0;
+      const b = parseFloat(document.getElementById('num2').value) || 0;
+
+      let result;
+
+      switch(operator) {
+
+        case '+':
+          result = a + b;
+          break;
+
+        case '-':
+          result = a - b;
+          break;
+
+        case '*':
+          result = a * b;
+          break;
+
+        case '/':
+          result = b !== 0 ? a / b : 'Cannot divide by zero';
+          break;
+
+        case '%':
+          result = a % b;
+          break;
+
+        default:
+          result = 'Invalid Operation';
+      }
+
+      document.getElementById('result').textContent =
+        `Result: ${result}`;
+    }
+  </script>
+
+</body>
+</html>
