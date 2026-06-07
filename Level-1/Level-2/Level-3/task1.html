@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Level 3 - Task 1</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: #111; color: white; padding: 30px 20px; }
+
+    h2 { text-align: center; margin-bottom: 24px; font-size: 1.6rem; color: #eee; }
+
+    /* ── Slideshow ── */
+    .slideshow {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto 50px;
+      border-radius: 14px;
+      overflow: hidden;
+      height: 380px;
+    }
+    .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.9s ease;
+    }
+    .slide.active { opacity: 1; }
+    .slide img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .slide-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.7));
+      padding: 16px 20px;
+      font-size: 1rem;
+    }
+    .dots {
+      text-align: center;
+      margin-top: 12px;
+    }
+    .dot {
+      display: inline-block;
+      width: 10px; height: 10px;
+      background: #555;
+      border-radius: 50%;
+      margin: 0 4px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .dot.active { background: #3498db; }
+
+    /* ── Gallery Grid ── */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 14px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .thumb {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      aspect-ratio: 1;
+    }
+    .thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .thumb:hover img { transform: scale(1.07); }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 85vh;
+      border-radius: 10px;
+      box-shadow: 0 0 40px rgba(255,255,255,0.1);
+    }
+    .close-btn {
+      position: absolute;
+      top: 20px; right: 28px;
+      font-size: 2.2rem;
+      cursor: pointer;
+      color: white;
+      line-height: 1;
+    }
+    .close-btn:hover { color: #e74c3c; }
+  </style>
+</head>
+<body>
+
+  <h2>🎬 Auto Slideshow</h2>
+
+  <div class="slideshow" id="slideshow">
+    <div class="slide active">
+      <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800" alt="Coding"/>
+      <div class="slide-caption">Web Development</div>
+    </div>
+    <div class="slide">
+      <img src="https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=800" alt="AI"/>
+      <div class="slide-caption">Artificial Intelligence</div>
+    </div>
+    <div class="slide">
+      <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800" alt="Data"/>
+      <div class="slide-caption">Data Analytics</div>
+    </div>
+    <div class="slide">
+      <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800" alt="Tech"/>
+      <div class="slide-caption">Technology</div>
+    </div>
+  </div>
+
+  <div class="dots" id="dots"></div>
+
+  <h2 style="margin-top: 40px;">🖼️ Image Gallery (Click to Enlarge)</h2>
+
+  <div class="gallery">
+    <div class="thumb" onclick="openLightbox(this)">
+      <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400" alt="Web Dev"/>
+    </div>
+    <div class="thumb" onclick="openLightbox(this)">
+      <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400" alt="Code"/>
+    </div>
+    <div class="thumb" onclick="openLightbox(this)">
+      <img src="https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=400" alt="AI"/>
+    </div>
+    <div class="thumb" onclick="openLightbox(this)">
+      <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400" alt="Data"/>
+    </div>
+    <div class="thumb" onclick="openLightbox(this)">
+      <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400" alt="Laptop"/>
+    </div>
+    <div class="thumb" onclick="openLightbox(this)">
+      <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400" alt="Terminal"/>
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <span class="close-btn" onclick="closeLightbox()">✕</span>
+    <img id="lightboxImg" src="" alt="Enlarged"/>
+  </div>
+
+  <script>
+    // ── Slideshow Logic ──
+    const slides = document.querySelectorAll('.slide');
+    const dotsContainer = document.getElementById('dots');
+    let current = 0;
+
+    // Build dots
+    slides.forEach((_, i) => {
+      const dot = document.createElement('span');
+      dot.className = 'dot' + (i === 0 ? ' active' : '');
+      dot.onclick = () => goTo(i);
+      dotsContainer.appendChild(dot);
+    });
+
+    function goTo(index) {
+      slides[current].classList.remove('active');
+      dotsContainer.children[current].classList.remove('active');
+      current = index;
+      slides[current].classList.add('active');
+      dotsContainer.children[current].classList.add('active');
+    }
+
+    setInterval(() => {
+      goTo((current + 1) % slides.length);
+    }, 3000);
+
+    // ── Lightbox Logic ──
+    function openLightbox(el) {
+      const src = el.querySelector('img').src;
+      document.getElementById('lightboxImg').src = src;
+      document.getElementById('lightbox').classList.add('open');
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+    }
+
+    // Close on backdrop click
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+      if (e.target === this) closeLightbox();
+    });
+  </script>
+
+</body>
+</html>

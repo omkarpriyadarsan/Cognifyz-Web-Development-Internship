@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Web Developer Internship - Cognifyz Technologies</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --primary: #2563eb;
+      --dark: #0f172a;
+      --light: #f8fafc;
+      --accent: #f59e0b;
+    }
+
+    body { font-family: 'Segoe UI', sans-serif; background: var(--light); color: #334155; }
+
+    /* ── Nav ── */
+    header {
+      background: var(--dark);
+      padding: 16px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo { color: white; font-size: 1.4rem; font-weight: 800; letter-spacing: -0.5px; }
+    .logo span { color: var(--accent); }
+    header nav a {
+      color: #94a3b8;
+      text-decoration: none;
+      margin-left: 24px;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    header nav a:hover { color: white; }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(135deg, var(--dark) 0%, #1e3a5f 100%);
+      color: white;
+      text-align: center;
+      padding: 100px 20px;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(245,158,11,0.2);
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 6px 18px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: clamp(1.8rem, 5vw, 3.2rem);
+      font-weight: 800;
+      max-width: 800px;
+      margin: 0 auto 20px;
+      line-height: 1.2;
+    }
+    .hero h1 span { color: var(--accent); }
+    .hero p {
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      opacity: 0.8;
+      max-width: 560px;
+      margin: 0 auto 36px;
+      line-height: 1.7;
+    }
+    .cta-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      padding: 14px 36px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .btn-primary:hover { background: #1d4ed8; transform: translateY(-2px); }
+    .btn-outline {
+      padding: 14px 36px;
+      background: transparent;
+      color: white;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: border-color 0.3s;
+    }
+    .btn-outline:hover { border-color: white; }
+
+    /* ── Stats ── */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      background: white;
+      padding: 32px 20px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .stat { text-align: center; }
+    .stat strong { display: block; font-size: 2rem; color: var(--primary); font-weight: 800; }
+    .stat span { font-size: 0.85rem; color: #64748b; }
+
+    /* ── Benefits ── */
+    .section { padding: 70px 20px; max-width: 1100px; margin: 0 auto; }
+    .section-title { text-align: center; font-size: 1.8rem; font-weight: 700; color: var(--dark); margin-bottom: 10px; }
+    .section-sub { text-align: center; color: #64748b; margin-bottom: 48px; }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+    }
+    .benefit-card {
+      background: white;
+      border-radius: 14px;
+      padding: 28px 24px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      border-top: 4px solid var(--primary);
+      transition: transform 0.3s;
+    }
+    .benefit-card:hover { transform: translateY(-5px); }
+    .benefit-card .icon { font-size: 2.2rem; margin-bottom: 14px; }
+    .benefit-card h3 { color: var(--dark); margin-bottom: 8px; }
+    .benefit-card p { font-size: 0.9rem; line-height: 1.6; color: #64748b; }
+
+    /* ── Skills ── */
+    .skills-section { background: var(--dark); padding: 70px 20px; }
+    .skills-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+    .skills-inner .section-title { color: white; }
+    .skills-inner .section-sub { color: #94a3b8; }
+
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 32px;
+    }
+    .skill-tag {
+      background: rgba(255,255,255,0.07);
+      color: #e2e8f0;
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 9px 20px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+    }
+
+    /* ── CTA Section ── */
+    .cta-section {
+      background: linear-gradient(135deg, var(--primary), #7c3aed);
+      color: white;
+      text-align: center;
+      padding: 80px 20px;
+    }
+    .cta-section h2 { font-size: 2rem; margin-bottom: 14px; }
+    .cta-section p { opacity: 0.85; margin-bottom: 32px; }
+    .cta-section button {
+      padding: 15px 42px;
+      background: white;
+      color: var(--primary);
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: #0f172a;
+      color: #94a3b8;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .footer-links { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin-bottom: 20px; }
+    .footer-links a { color: #94a3b8; text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-links a:hover { color: white; }
+    .footer-contact { margin-bottom: 16px; font-size: 0.9rem; }
+    .footer-contact a { color: #60a5fa; text-decoration: none; }
+    .copyright { font-size: 0.82rem; color: #475569; }
+
+    @media (max-width: 600px) {
+      header nav { display: none; }
+      .stats { gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">Cogni<span>fyz</span></div>
+    <nav>
+      <a href="#benefits">Benefits</a>
+      <a href="#skills">Skills</a>
+      <a href="#apply">Apply</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">🚀 Now Accepting Applications</div>
+    <h1>Web Developer Internship<br/>Opportunities at <span>Cognifyz Technologies</span></h1>
+    <p>
+      Join our 4–8 week internship program and gain real-world web development experience
+      under the mentorship of industry professionals.
+    </p>
+    <div class="cta-group" id="apply">
+      <button class="btn-primary">Apply Now</button>
+      <button class="btn-outline">Learn More</button>
+    </div>
+  </section>
+
+  <!-- Stats Bar -->
+  <div class="stats">
+    <div class="stat"><strong>200+</strong><span>Interns Trained</span></div>
+    <div class="stat"><strong>4–8</strong><span>Week Program</span></div>
+    <div class="stat"><strong>100%</strong><span>Certificate Provided</span></div>
+    <div class="stat"><strong>Live</strong><span>Project Experience</span></div>
+  </div>
+
+  <!-- Benefits -->
+  <div class="section" id="benefits">
+    <h2 class="section-title">Why Intern With Us?</h2>
+    <p class="section-sub">Everything you need to launch your tech career</p>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="icon">🏗️</div>
+        <h3>Real-World Projects</h3>
+        <p>Work on live projects that have genuine business impact, not just tutorials or toy apps.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="icon">🧑‍🏫</div>
+        <h3>Expert Mentorship</h3>
+        <p>Learn directly from senior engineers and data scientists with years of industry experience.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="icon">📜</div>
+        <h3>Completion Certificate</h3>
+        <p>Receive an industry-recognized certificate to boost your LinkedIn profile and resume.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="icon">🌐</div>
+        <h3>Flexible & Remote</h3>
+        <p>Work from anywhere. Our program is fully remote with flexible scheduling to suit students.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Skills Required -->
+  <div class="skills-section" id="skills">
+    <div class="skills-inner">
+      <h2 class="section-title">Desired Skills & Technologies</h2>
+      <p class="section-sub">We welcome all levels — beginner to intermediate</p>
+      <div class="skills-grid">
+        <span class="skill-tag">HTML5</span>
+        <span class="skill-tag">CSS3</span>
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">Responsive Design</span>
+        <span class="skill-tag">Bootstrap / Tailwind</span>
+        <span class="skill-tag">React.js (Bonus)</span>
+        <span class="skill-tag">Git & GitHub</span>
+        <span class="skill-tag">Problem Solving</span>
+        <span class="skill-tag">Eagerness to Learn</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Final CTA -->
+  <section class="cta-section">
+    <h2>Ready to Start Your Journey?</h2>
+    <p>Applications are open. Spots are limited — don't miss out!</p>
+    <button>Apply Now →</button>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact">
+    <div class="footer-links">
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="#">Programs</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="footer-contact">
+      📧 <a href="mailto:contact@cognifyz.com">contact@cognifyz.com</a> &nbsp;|&nbsp;
+      🌐 <a href="http://www.cognifyz.com">www.cognifyz.com</a> &nbsp;|&nbsp;
+      📷 @cognifyz_tech
+    </div>
+    <div class="copyright">© 2024 Cognifyz Technologies. All rights reserved.</div>
+  </footer>
+
+</body>
+</html>
